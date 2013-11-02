@@ -1,0 +1,14 @@
+development: &default
+  adapter: postgresql
+  database: todomvc_development
+  host: localhost
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  encoding: utf8
+  password:
+  min_messages: warning
+  pool: 5
+  timeout: 5000
+
+test:
+  <<: *default
+  database: todomvc_test
