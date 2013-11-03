@@ -1,60 +1,75 @@
 # todos
-
-jQuery.fn.submitOnCheck = ->
-  @find('input[type=submit]').remove()
-  @find('input[type=checkbox]').click ->
-    $(this).parent('form').submit()
-  this
-
 jQuery ->
-  $('#toggle-all-form').submitOnCheck()
-  $('.edit_todo').submitOnCheck()
+  Todo.init()
 
-  $('#todo-list').on 'dblclick', 'label', ->
-    $(this).hide().parent().find('input[name="todo[title]"]').show()
+  # Highlight selected filter
+  Todo.filters.click ->
+    Todo.filters.removeClass('selected')
+    $(@).addClass('selected')
 
-  Todo.updateCount()
-  Todo.updateLinks()
+  # Edit todo title on doubleclick
+  Todo.list.on 'dblclick', 'label', ->
+    $(@).parents('.todo').addClass('editing')
 
 @Todo =
+  list: $('#todo-list')
+  newTodo: $('#new-todo')
+  activeTodos: $('#active-todos-count')
+  completedTodos: $('#completed-todos-count')
+  clearCompleted: $('#clear-completed')
+  filters: $('#filters a')
+
+  todo: (id) ->
+    $('#todo_' + id)
+
+  init: ->
+    @render
+
+  render: ->
+    @submitFormsOnCheck()
+    @updateCounts()
+
   replaceList: (todos) ->
-    $todos = $(todos).submitOnCheck()
-    $('#todo-list').html($todos)
-    @updateCount()
+    @list.html(todos)
+    @render()
 
   create: (todo) ->
-    $todo = $(todo).submitOnCheck()
-    $('#todo-list').append($todo)
-    @clearForm()
-    @updateCount()
+    @list.append(todo)
+    @clearNewTodo()
+    @render()
 
   update: (id, todo) ->
-    $todo = $(todo).submitOnCheck()
-    $('#todo_' + id).replaceWith($todo)
-    @updateCount()
+    @todo(id).replaceWith(todo)
+    @render()
 
   destroy: (id) ->
-    $('#todo_' + id).remove()
-    @updateCount()
+    @todo(id).remove()
+    @render()
 
-  clearForm: ->
-    $('#new-todo').val('')
+  clearNewTodo: ->
+    @newTodo.val('')
 
-  updateLinks: ->
-    $('#filters a').removeClass('selected')
-    $('#filters [href="' + window.location.pathname + '"]').addClass('selected')
+  # Submit todo form when checkbox is clicked
+  submitFormsOnCheck: ->
+    forms = $('.edit_todo')
+    forms.submitOnCheck()
 
-  updateCount: ->
-    activeCount = $('.todo[data-completed=false]').length
-    plural = if activeCount == 1 then '' else 's'
-    text = '<strong>' + activeCount + '</strong> item' + plural + ' left'
-    $('#todo-count').html(text)
+  updateCounts: ->
+    activeTodosCount = $('.todo[data-completed=false]').length
+    @updateActiveTodosCount(activeTodosCount)
 
-    completedCount = $('.todo[data-completed=true]').length
-    $('#completed-count').html('(' + completedCount + ')')
-    if completedCount > 0
-      $('#clear-completed').show()
+    completedTodosCount = $('.todo[data-completed=true]').length
+    @updateCompletedTodosCount(completedTodosCount)
+
+  updateActiveTodosCount: (count) ->
+    itemOrItems = if count == 1 then 'item' else 'items'
+    message = '<b>' + count + '</b> ' + itemOrItems + ' left'
+    @activeTodos.html(message)
+
+  updateCompletedTodosCount: (count) ->
+    message = '(' + count + ')'
+    @completedTodos.html(message)
+    if count > 0
+      @clearCompleted.show()
     else
-      $('#clear-completed').hide()
-
-# this.$clearCompleted.innerHTML = this.view.clearCompletedButton(todos.completed);
+      @clearCompleted.hide()

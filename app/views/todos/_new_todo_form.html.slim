@@ -1,0 +1,3 @@
+/ new todo form
+= form_for Todo.new, remote: true do |f|
+  = f.text_field :title, id: 'new-todo', placeholder: 'What needs to be done?', autofocus: true, autocomplete: 'off'

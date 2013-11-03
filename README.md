@@ -1,2 +1,5 @@
-TodoMVC in Rails and jQuery ajax
-============================
+# TodoMVC in Rails
+
+  * Rails 4.0
+  * jQuery & Ajax
+

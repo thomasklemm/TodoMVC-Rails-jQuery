@@ -8,11 +8,12 @@
     = form_for todo, remote: true do |f|
       = f.check_box :completed, class: 'toggle'
 
-      / title
-      label = todo.title
+    / todo title
+    label = todo.title
 
-      / title field
-      = f.text_field :title, class: 'edit-todo', style: 'display: none'
+  / title field
+  = form_for todo, remote: true do |f|
+    = f.text_field :title, class: 'edit', autocomplete: 'off'
 
-      / destroy todo
-      = link_to '', todo, method: :delete, remote: true, class: 'destroy'
+  / destroy todo
+  = link_to icon_tag('times'), todo, method: :delete, remote: true, class: 'destroy'

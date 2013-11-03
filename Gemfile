@@ -14,6 +14,9 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'foreman'
+  gem 'rack-livereload'
+  gem 'guard', '>= 2.2'
+  gem 'guard-livereload', '>= 2.0'
 end
 
 group :development, :test do

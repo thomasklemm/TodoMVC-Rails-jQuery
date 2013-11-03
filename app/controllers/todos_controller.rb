@@ -1,9 +1,8 @@
 class TodosController < ApplicationController
-  before_action :set_context, only: [:toggle_all, :clear_completed]
-  before_action :set_todos, only: [:index, :toggle_all, :clear_completed]
+  before_action :set_filter, only: [:toggle_all, :destroy_completed]
+  before_action :set_todos, only: [:index, :toggle_all, :destroy_completed]
   before_action :set_todo, only: [:edit, :update, :destroy]
-  respond_to :html, only: :index
-  respond_to :js
+  respond_to :html, :js
 
   def index
     respond_with @todos
@@ -39,18 +38,18 @@ class TodosController < ApplicationController
     respond_with @todos
   end
 
-  def clear_completed
+  def destroy_completed
     Todo.clear_completed
     respond_with @todos
   end
 
   private
 
-  def set_context
+  def set_filter
     path = request.referer
     return unless path.present?
     params[:active] = true if path.end_with?(active_todos_path)
-    params[:completed] = true if path.end_with?(active_todos_path)
+    params[:completed] = true if path.end_with?(completed_todos_path)
   end
 
   def set_todos
