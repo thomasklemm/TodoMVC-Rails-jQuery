@@ -12,4 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require prefilled_input
+//= require todos
+
+if (history && history.pushState) {
+  $(function() {
+    $("#filters a").on("click", function(e) {
+      $.getScript(this.href);
+      history.pushState(null, document.title, this.href);
+      Todo.updateLinks();
+      e.preventDefault();
+    });
+    $(window).bind("popstate", function() {
+      $.getScript(location.href);
+    });
+  });
+}

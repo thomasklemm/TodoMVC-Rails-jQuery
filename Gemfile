@@ -7,6 +7,7 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'rails', '>= 4.0.0'
 gem 'sass-rails'
+gem 'slim-rails'
 gem 'unicorn'
 
 group :development do

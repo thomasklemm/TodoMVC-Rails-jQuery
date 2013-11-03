@@ -1,0 +1,35 @@
+section#todoapp
+  header#header
+    h1 todos
+    / new todo form
+    = form_for Todo.new, remote: true do |f|
+      = f.text_field :title, id: 'new-todo', autofocus: true, autocomplete: 'off', placebolder: 'What needs to be done?'
+
+  section#main
+    = form_tag toggle_all_todos_path, id: 'toggle-all-form', remote: true do
+      = check_box_tag 'toggle-all'
+      = label_tag 'toggle-all', 'Mark all as complete'
+      = submit_tag 'Toggle all', style: 'position: absolute; left: -9999px'
+
+    ul#todo-list
+      = render @todos
+
+  footer#footer
+    span#todo-count
+    ul#filters
+      li = link_to 'All', todos_path, remote: true
+      li = link_to 'Active', active_todos_path, remote: true
+      li = link_to 'Completed', completed_todos_path, remote: true
+    = link_to clear_completed_todos_path, method: :post, remote: true, id: 'clear-completed' do
+      ' Clear completed
+      span#completed-count
+
+footer#info
+  p Double-click to edit a todo
+  p
+    ' Created by
+    = link_to 'Thomas Klemm', 'https://github.com/thomasklemm'
+  p
+    ' Part of
+    = link_to 'TodoMVC', 'http://todomvc.com'
+
