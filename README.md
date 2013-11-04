@@ -12,20 +12,21 @@
 
   Techniques learned from these sources are applied:
 
-  * [Railscast #136: jQuery & Ajax](http://railscasts.com/episodes/136-jquery-ajax-revised)
+  * [RailsCast #136: jQuery & Ajax](http://railscasts.com/episodes/136-jquery-ajax-revised)
+  * [RailsCast #229: Polling for Changes](http://railscasts.com/episodes/229-polling-for-changes-revised) - Organized JS
   * [TodoMVC with Vanilla Javascript](http://todomvc.com/vanilla-examples/vanillajs/)
   * [TodoMVC with jQuery](http://todomvc.com/architecture-examples/jquery/)
   * [TodoMVC on Rails](https://github.com/smidwap/todomvc_on_rails)
 
 ## Moving onwards
 
-  I welcome and value improvements and discussion. Just open an issue or send a PR.
+  I welcome and value improvements and discussion. Just open an issue or send a PR. For comparison, I might convert this app to a Turbolinks-enabled standard Rails app some day.
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) <2013> <Thomas Klemm>
+Copyright (c) 2013 Thomas Klemm
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
