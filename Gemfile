@@ -4,10 +4,11 @@ ruby '2.0.0'
 
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'pg'
+gem 'pg', group: :production
 gem 'rails', '>= 4.0.0'
 gem 'sass-rails'
 gem 'slim-rails'
+gem 'sqlite3', group: [:development, :test]
 gem 'unicorn'
 
 group :development do

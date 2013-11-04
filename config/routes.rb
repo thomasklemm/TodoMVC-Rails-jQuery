@@ -1,9 +1,5 @@
 TodoMVC::Application.routes.draw do
-  resources :todos do
-    member do
-      post :toggle
-    end
-
+  resources :todos, except: [:show] do
     collection do
       get :active, to: :index, active: true
       get :completed, to: :index, completed: true
